@@ -40,7 +40,7 @@ size=512M, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="BOOT"
 type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="ROOT"
 EOF
 
-echo ">>> Formatting boot and EFI file systems"
+echo ">>> Formatting EFI and boot file systems"
 mkfs.fat -F32 -n EFI "${PART_EFI}"
 mkfs.ext4 -L BOOT "${PART_BOOT}"
 
@@ -102,8 +102,7 @@ echo "2. Update root password:"
 echo "   sudo passwd root"
 echo ""
 echo "3. Update your LUKS encryption password:"
-echo "   sudo cryptsetup luksAddKey ${PART_ROOT}"
-echo "   sudo cryptsetup luksRemoveKey ${PART_ROOT}"
+echo "   sudo cryptsetup luksChangeKey ${PART_ROOT}"
 
 echo ">>> Unmounting and closing encrypted drives"
 umount -R /mnt
